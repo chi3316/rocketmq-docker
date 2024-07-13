@@ -6,7 +6,7 @@ nameserver:
   replicaCount: 1
   image:
     pullPolicy: IfNotPresent
-    repository: "apache/rocketmq"
+    repository: "registry.cn-guangzhou.aliyuncs.com/cc-aliyun/rocketmq-ssh"
     tag: "latest"
 
   imagePullSecrets: [ ]
@@ -82,7 +82,7 @@ proxy:
   replicaCount: 1
   image:
     pullPolicy: IfNotPresent
-    repository: "apache/rocketmq"
+    repository: "registry.cn-guangzhou.aliyuncs.com/cc-aliyun/rocketmq-ssh"
     tag: "latest"
 
   imagePullSecrets: [ ]
@@ -156,7 +156,7 @@ broker:
   replicaCount: 1
   image:
     pullPolicy: IfNotPresent
-    repository: "apache/rocketmq"
+    repository: "registry.cn-guangzhou.aliyuncs.com/cc-aliyun/rocketmq-ssh"
     tag: "latest"
 
   partition: 0
@@ -206,7 +206,7 @@ controller:
   fullnameOverride: ""
   replicas: 3
   image:
-    repository: "apache/rocketmq"
+    repository: "registry.cn-guangzhou.aliyuncs.com/cc-aliyun/rocketmq-ssh"
     tag: "latest"
     pullPolicy: IfNotPresent
   service:
