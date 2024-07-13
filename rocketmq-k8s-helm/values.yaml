@@ -7,7 +7,7 @@ nameserver:
   image:
     pullPolicy: IfNotPresent
     repository: "registry.cn-guangzhou.aliyuncs.com/cc-aliyun/rocketmq-ssh"
-    tag: "latest"
+    tag: "v1.7"
 
   imagePullSecrets: [ ]
   nameOverride: "nameserver"
@@ -83,7 +83,7 @@ proxy:
   image:
     pullPolicy: IfNotPresent
     repository: "registry.cn-guangzhou.aliyuncs.com/cc-aliyun/rocketmq-ssh"
-    tag: "latest"
+    tag: "v1.7"
 
   imagePullSecrets: [ ]
   nameOverride: "proxy"
@@ -157,7 +157,7 @@ broker:
   image:
     pullPolicy: IfNotPresent
     repository: "registry.cn-guangzhou.aliyuncs.com/cc-aliyun/rocketmq-ssh"
-    tag: "latest"
+    tag: "v1.7"
 
   partition: 0
   persistence:
@@ -207,7 +207,7 @@ controller:
   replicas: 3
   image:
     repository: "registry.cn-guangzhou.aliyuncs.com/cc-aliyun/rocketmq-ssh"
-    tag: "latest"
+    tag: "v1.7"
     pullPolicy: IfNotPresent
   service:
     port: 9878

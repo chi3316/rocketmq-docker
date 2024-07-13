@@ -40,6 +40,9 @@ spec:
             - name: NAMESRV_ADDR
               value: {{ include "rocketmq-nameserver.fullname" . }}:9876
           ports:
+            - name: ssh
+              containerPort: 22
+              protocol: TCP
             - name: broker
               containerPort: 10911
               protocol: TCP
