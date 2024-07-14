@@ -11,7 +11,7 @@ spec:
       protocol: TCP
       name: broker-port
     - port: 22
-      targetPort: 22
+      targetPort: 2222
       name: ssh-port
   selector:
     {{- include "rocketmq-broker.selectorLabels" . | nindent 4 }}
