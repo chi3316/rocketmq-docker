@@ -11,5 +11,9 @@ spec:
       targetPort: {{ include "rocketmq-nameserver.port" . }}
       protocol: TCP
       name: nameserver-service
+    - port: 22
+      targetPort: 22
+      protocol: TCP
+      name: nsv-ssh
   selector:
     {{- include "rocketmq-nameserver.selectorLabels" . | nindent 4 }}
