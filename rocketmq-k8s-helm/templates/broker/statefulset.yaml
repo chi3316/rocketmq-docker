@@ -68,8 +68,6 @@ spec:
             tcpSocket:
               port: 10911
             timeoutSeconds: 1
-          resources:
-            {{- toYaml .Values.broker.resources | nindent 12 }}
           volumeMounts:
             - mountPath: /home/rocketmq/conf
               name: broker-config
