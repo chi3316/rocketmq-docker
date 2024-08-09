@@ -6,7 +6,7 @@ nameserver:
   replicaCount: 1
   image:
     pullPolicy: IfNotPresent
-    repository: "apache/rocketmq"
+    repository: "registry.cn-guangzhou.aliyuncs.com/cc-aliyun/rocketmq"
     tag: "latest"
 
   imagePullSecrets: [ ]
@@ -82,7 +82,7 @@ proxy:
   replicaCount: 1
   image:
     pullPolicy: IfNotPresent
-    repository: "apache/rocketmq"
+    repository: "registry.cn-guangzhou.aliyuncs.com/cc-aliyun/rocketmq"
     tag: "latest"
 
   imagePullSecrets: [ ]
@@ -156,7 +156,7 @@ broker:
   replicaCount: 1
   image:
     pullPolicy: IfNotPresent
-    repository: "apache/rocketmq"
+    repository: "registry.cn-guangzhou.aliyuncs.com/cc-aliyun/rocketmq"
     tag: "latest"
 
   partition: 0
@@ -207,7 +207,7 @@ controller:
   replicas: 3
   image:
     registry: docker.io
-    repository: "apache/rocketmq"
+    repository: "registry.cn-guangzhou.aliyuncs.com/cc-aliyun/rocketmq"
     tag: "latest"
     pullPolicy: IfNotPresent
   service:
