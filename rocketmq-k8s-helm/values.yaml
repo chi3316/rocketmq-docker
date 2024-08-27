@@ -6,8 +6,8 @@ nameserver:
   replicaCount: 1
   image:
     pullPolicy: IfNotPresent
-    repository: "registry.cn-guangzhou.aliyuncs.com/cc-aliyun/rocketmq"
-    tag: "latest"
+    repository: "registry.cn-guangzhou.aliyuncs.com/cc-aliyun/rocketmq-ci"
+    tag: "develop-94402c3e-906d-40ab-9161-7418164df551-ubuntu"
 
   imagePullSecrets: [ ]
   nameOverride: "nameserver"
@@ -82,8 +82,8 @@ proxy:
   replicaCount: 1
   image:
     pullPolicy: IfNotPresent
-    repository: "registry.cn-guangzhou.aliyuncs.com/cc-aliyun/rocketmq"
-    tag: "latest"
+    repository: "registry.cn-guangzhou.aliyuncs.com/cc-aliyun/rocketmq-ci"
+    tag: "develop-94402c3e-906d-40ab-9161-7418164df551-ubuntu"
 
   imagePullSecrets: [ ]
   nameOverride: "proxy"
@@ -156,8 +156,8 @@ broker:
   replicaCount: 1
   image:
     pullPolicy: IfNotPresent
-    repository: "registry.cn-guangzhou.aliyuncs.com/cc-aliyun/rocketmq"
-    tag: "latest"
+    repository: "registry.cn-guangzhou.aliyuncs.com/cc-aliyun/rocketmq-ci"
+    tag: "develop-94402c3e-906d-40ab-9161-7418164df551-ubuntu"
 
   partition: 0
   persistence:
@@ -206,8 +206,8 @@ controller:
   fullnameOverride: ""
   replicas: 3
   image:
-    repository: "registry.cn-guangzhou.aliyuncs.com/cc-aliyun/rocketmq"
-    tag: "latest"
+    repository: "registry.cn-guangzhou.aliyuncs.com/cc-aliyun/rocketmq-ci"
+    tag: "develop-94402c3e-906d-40ab-9161-7418164df551-ubuntu"
     pullPolicy: IfNotPresent
   service:
     port: 9878
