@@ -25,7 +25,7 @@ spec:
           imagePullPolicy: {{ $.Values.broker.image.pullPolicy }}
         {{- end }}
           command: [ "/bin/sh" ]
-          args: [ "-c", "./mqbroker-ssh -c /home/rocketmq/conf/$(POD_NAME)" ]
+          args: [ "-c", "./mqbroker -c /home/rocketmq/conf/$(POD_NAME)" ]
           env:
             - name: POD_NAME
               valueFrom:
