@@ -79,63 +79,50 @@ calculate_heap_sizes()
         ;;
     esac
 
-    # some systems like the raspberry pi don't report cores, use at least 1
-    if [ "$system_cpu_cores" -lt "1" ]
-    then
+    if [ "$system_cpu_cores" -lt "1" ]; then
         system_cpu_cores="1"
     fi
 
-    # set max heap size based on the following
-    # max(min(1/2 ram, 1024MB), min(1/4 ram, 8GB))
-    # calculate 1/2 ram and cap to 1024MB
-    # calculate 1/4 ram and cap to 8192MB
-    # pick the max
     half_system_memory_in_mb=`expr $system_memory_in_mb / 2`
     quarter_system_memory_in_mb=`expr $half_system_memory_in_mb / 2`
-    if [ "$half_system_memory_in_mb" -gt "1024" ]
-    then
+    if [ "$half_system_memory_in_mb" -gt "1024" ]; then
         half_system_memory_in_mb="1024"
     fi
-    if [ "$quarter_system_memory_in_mb" -gt "8192" ]
-    then
+    if [ "$quarter_system_memory_in_mb" -gt "8192" ]; then
         quarter_system_memory_in_mb="8192"
     fi
-    if [ "$half_system_memory_in_mb" -gt "$quarter_system_memory_in_mb" ]
-    then
+    if [ "$half_system_memory_in_mb" -gt "$quarter_system_memory_in_mb" ]; then
         max_heap_size_in_mb="$half_system_memory_in_mb"
     else
         max_heap_size_in_mb="$quarter_system_memory_in_mb"
     fi
     MAX_HEAP_SIZE="${max_heap_size_in_mb}M"
 
-    # Young gen: min(max_sensible_per_modern_cpu_core * num_cores, 1/4 * heap size)
     max_sensible_yg_per_core_in_mb="100"
     max_sensible_yg_in_mb=`expr $max_sensible_yg_per_core_in_mb "*" $system_cpu_cores`
 
     desired_yg_in_mb=`expr $max_heap_size_in_mb / 4`
 
-    if [ "$desired_yg_in_mb" -gt "$max_sensible_yg_in_mb" ]
-    then
+    if [ "$desired_yg_in_mb" -gt "$max_sensible_yg_in_mb" ]; then
         HEAP_NEWSIZE="${max_sensible_yg_in_mb}M"
     else
         HEAP_NEWSIZE="${desired_yg_in_mb}M"
     fi
 }
 
-calculate_heap_sizes
+if [ -z "$jvmMemory" ]; then
+    calculate_heap_sizes
+    jvmMemory="-Xms${MAX_HEAP_SIZE} -Xmx${MAX_HEAP_SIZE} -Xmn${HEAP_NEWSIZE}"
+fi
 
-# Dynamically calculate parameters, for reference.
-Xms=$MAX_HEAP_SIZE
-Xmx=$MAX_HEAP_SIZE
-Xmn=$HEAP_NEWSIZE
 # Set for `JAVA_OPT`.
-JAVA_OPT="${JAVA_OPT} -server -Xms${Xms} -Xmx${Xmx} -Xmn${Xmn}"
+JAVA_OPT="${JAVA_OPT} -server ${jvmMemory}"
 JAVA_OPT="${JAVA_OPT} -XX:+UseConcMarkSweepGC -XX:+UseCMSCompactAtFullCollection -XX:CMSInitiatingOccupancyFraction=70 -XX:+CMSParallelRemarkEnabled -XX:SoftRefLRUPolicyMSPerMB=0 -XX:+CMSClassUnloadingEnabled -XX:SurvivorRatio=8  -XX:-UseParNewGC"
 JAVA_OPT="${JAVA_OPT} -verbose:gc -Xloggc:/dev/shm/rmq_srv_gc.log -XX:+PrintGCDetails"
 JAVA_OPT="${JAVA_OPT} -XX:-OmitStackTraceInFastThrow"
 JAVA_OPT="${JAVA_OPT}  -XX:-UseLargePages"
 JAVA_OPT="${JAVA_OPT} -Djava.ext.dirs=${JAVA_HOME}/jre/lib/ext:${BASE_DIR}/lib"
-#JAVA_OPT="${JAVA_OPT} -Xdebug -Xrunjdwp:transport=dt_socket,address=9555,server=y,suspend=n"
+# JAVA_OPT="${JAVA_OPT} -Xdebug -Xrunjdwp:transport=dt_socket,address=9555,server=y,suspend=n"
 JAVA_OPT="${JAVA_OPT} ${JAVA_OPT_EXT}"
 JAVA_OPT="${JAVA_OPT} -cp ${CLASSPATH}"
 
