@@ -1,0 +1,28 @@
+name: Build RocketMQ image via GitHub Action
+
+on:
+  push:
+    branches:
+      - "test-custom-jvm"
+    
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Build image
+        run: cd image-build && sh build-image.sh 5.3.0 ubuntu
+
+      - name: Check image build
+        run: docker images | grep rocketmq
+
+      - name: Docker login
+        run: echo "${{ secrets.DOCKERHUB_TOKEN }}" | docker login registry.cn-guangzhou.aliyuncs.com --username=aliyun3982714546 --password-stdin
+
+      - name: Tag image
+        run: docker tag rocketmq:5.3.0 registry.cn-guangzhou.aliyuncs.com/cc-aliyun/rocketmq:5.3.0
+
+      - name: Push image
+        run: docker push registry.cn-guangzhou.aliyuncs.com/cc-aliyun/rocketmq:5.3.0
