@@ -22,7 +22,7 @@ jobs:
         run: echo "${{ secrets.DOCKERHUB_TOKEN }}" | docker login registry.cn-guangzhou.aliyuncs.com --username=aliyun3982714546 --password-stdin
 
       - name: Tag image
-        run: docker tag rocketmq:5.3.0 registry.cn-guangzhou.aliyuncs.com/cc-aliyun/rocketmq:5.3.0
+        run: docker tag apache/rocketmq:5.3.0 registry.cn-guangzhou.aliyuncs.com/cc-aliyun/rocketmq:5.3.0
 
       - name: Push image
         run: docker push registry.cn-guangzhou.aliyuncs.com/cc-aliyun/rocketmq:5.3.0
